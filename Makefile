@@ -67,11 +67,11 @@ test: $(TESTS)
 	$(RUN_TEST) tests/test_workflows.sh
 
 # No tracked file points into a private repository: Open-Mixer/.github's private-refs check, from a checkout of
-# it (FREEMIXER_DOTGITHUB, else ../freemixer-dotgithub). CI runs it, with the commit message check, through the
+# it (OPENMIXER_DOTGITHUB, else ../freemixer-dotgithub). CI runs it, with the commit message check, through the
 # public-sources-check workflow; the packages' builds do not, so `make test` does not either.
-FREEMIXER_DOTGITHUB ?= ../freemixer-dotgithub
+OPENMIXER_DOTGITHUB ?= ../freemixer-dotgithub
 public-sources:
-	$(FREEMIXER_DOTGITHUB)/.github/actions/private-refs-check/check.sh .
+	$(OPENMIXER_DOTGITHUB)/.github/actions/private-refs-check/check.sh .
 
 # The pkg-config file is written at install time, from the install's own PREFIX and LIBDIR: a
 # file kept from an earlier build would name that build's directories.
