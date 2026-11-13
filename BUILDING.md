@@ -38,8 +38,8 @@ as SKIP, never as a pass.
   `test_workflows.sh` parses the CI workflows.
 
 The checks on what this repository publishes, commit messages and private references, are
-FreeMixer/.github's, and CI runs them through its `public-sources-check` workflow; no copy is
-kept here. `make public-sources` runs the private-refs check from a checkout of FreeMixer/.github
+Open-Mixer/.github's, and CI runs them through its `public-sources-check` workflow; no copy is
+kept here. `make public-sources` runs the private-refs check from a checkout of Open-Mixer/.github
 (`FREEMIXER_DOTGITHUB`, else `../freemixer-dotgithub`). The commit-msg hook in `.githooks` is the
 shared stub; enable it once per clone with `git config core.hooksPath .githooks`.
 
