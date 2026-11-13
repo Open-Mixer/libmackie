@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Pau Aliagas <linuxnow@gmail.com>
 Build-Depends: debhelper-compat (= 13), git, pkgconf
 Standards-Version: 4.6.2
-Homepage: https://github.com/FreeMixer/libmackie
+Homepage: https://github.com/Open-Mixer/libmackie
 Rules-Requires-Root: no
 
 Package: libmackie0

@@ -11,7 +11,7 @@ Release:        1%{?dist}
 Summary:        Encode and decode the Mackie Control protocol of MIDI control surfaces
 
 License:        GPL-3.0-or-later
-URL:            https://github.com/FreeMixer/libmackie
+URL:            https://github.com/Open-Mixer/libmackie
 Source0:        %{name}-%{version}.tar.gz
 
 BuildRequires:  gcc

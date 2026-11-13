@@ -4,7 +4,7 @@
 
 libmackie is the wire layer under a surface behaviour layer (motor policy, touch, banking,
 repaint) that is shared by MIDI surfaces and by DigiNet desks such as the Digidesign Control|24
-([libdiginet](https://github.com/FreeMixer/libdiginet)). MIDI bytes never cross into that
+([libdiginet](https://github.com/Open-Mixer/libdiginet)). MIDI bytes never cross into that
 layer: libmackie encodes and decodes them, and the host carries them. The design is on
 [libdiginet#29](https://github.com/FreeMixer/libdiginet/issues/29).
 
