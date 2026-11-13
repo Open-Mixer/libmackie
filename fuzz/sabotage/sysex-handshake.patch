@@ -1,4 +1,4 @@
-Breaks the check of fuzz/fuzz_sysex.c:64 (`msg[3] != MACKIE_MANUFACTURER_2` becomes `0` at src/mackie_sysex.c:144).
+Breaks the check of fuzz/fuzz_sysex.c:71 (`msg[3] != MACKIE_MANUFACTURER_2` becomes `0` at src/mackie_sysex.c:144).
 Caught by the seed input "other-manufacturer" of fuzz_sysex.
 
 diff --git a/src/mackie_sysex.c b/src/mackie_sysex.c
