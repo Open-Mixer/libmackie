@@ -27,7 +27,8 @@ check() {
 	spec_ver=$(sed -n 's/^Version: *//p' "$spec")
 	spec_abi=$(sed -n 's/^%global abi  *//p' "$spec")
 	deb_ver=$(sed -n '1s/^[^ ]* (\([^)]*\)).*/\1/p' "$t/debian/changelog")
-	deb_ver=${deb_ver%%~*}   # an untagged build stamps ~git<sha> on the top entry
+	deb_ver=${deb_ver%%~*}   # an untagged build stamps ~git<sha> on the top entry,
+	deb_ver=${deb_ver%%+*}   # a staged one +git<sha>
 	deb_abi=$(sed -n 's/^Package: libmackie\([0-9][0-9]*\)$/\1/p' "$t/debian/control")
 
 	[ "$hver" = "$ver" ] || { echo "  ARM 1: mackie.h says $hver, VERSION says $ver"; bad=1; }
