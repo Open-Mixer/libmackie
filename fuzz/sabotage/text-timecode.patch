@@ -1,4 +1,4 @@
-Breaks the check of fuzz/fuzz_text.c:168 (`return MACKIE_E_SPACE` becomes `return MACKIE_E_RANGE` at src/mackie_display.c:65).
+Breaks the check of fuzz/fuzz_text.c:170 (`return MACKIE_E_SPACE` becomes `return MACKIE_E_RANGE` at src/mackie_display.c:65).
 Caught by the seed input "timecode-no-room" of fuzz_text.
 
 diff --git a/src/mackie_display.c b/src/mackie_display.c

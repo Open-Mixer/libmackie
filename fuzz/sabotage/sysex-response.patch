@@ -1,4 +1,4 @@
-Breaks the check of fuzz/fuzz_sysex.c:193 (`0x7fu &` becomes `` at src/mackie_sysex.c:171).
+Breaks the check of fuzz/fuzz_sysex.c:198 (`0x7fu &` becomes `` at src/mackie_sysex.c:171).
 Caught by the seed input "response-high" of fuzz_sysex.
 
 diff --git a/src/mackie_sysex.c b/src/mackie_sysex.c

@@ -1,4 +1,4 @@
-Breaks the check of fuzz/fuzz_text.c:209 (`m->assignment_cc + 1 - i` becomes `m->assignment_cc - i` at src/mackie_display.c:88).
+Breaks the check of fuzz/fuzz_text.c:211 (`m->assignment_cc + 1 - i` becomes `m->assignment_cc - i` at src/mackie_display.c:88).
 Caught by the seed input "assignment-text" of fuzz_text.
 
 diff --git a/src/mackie_display.c b/src/mackie_display.c

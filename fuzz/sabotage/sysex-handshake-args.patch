@@ -1,4 +1,4 @@
-Breaks the check of fuzz/fuzz_sysex.c:108 (`MACKIE_E_ARG` becomes `MACKIE_E_RANGE` at src/mackie_sysex.c:139).
+Breaks the check of fuzz/fuzz_sysex.c:115 (`MACKIE_E_ARG` becomes `MACKIE_E_RANGE` at src/mackie_sysex.c:139).
 Caught by the seed input "args-null" of fuzz_sysex.
 
 diff --git a/src/mackie_sysex.c b/src/mackie_sysex.c

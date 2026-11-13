@@ -1,4 +1,4 @@
-Breaks the check of fuzz/fuzz_sysex.c:128 (`h.sub != MACKIE_HS_VERSION_REPLY` becomes `0` at src/mackie_sysex.c:221).
+Breaks the check of fuzz/fuzz_sysex.c:133 (`h.sub != MACKIE_HS_VERSION_REPLY` becomes `0` at src/mackie_sysex.c:221).
 Caught by the seed input "version-query-reply" of fuzz_sysex.
 
 diff --git a/src/mackie_sysex.c b/src/mackie_sysex.c

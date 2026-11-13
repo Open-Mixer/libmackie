@@ -163,8 +163,10 @@ FUZZ_CHECK check_timecode(const struct fuzz_map *fm, const char *text, size_t ca
 	/* When the room is short of the characters the display needs, it is not written.
 	 * contract: include/mackie/mackie_codec.h mackie_timecode_encode ("MACKIE_E_SPACE when cap is short of them")
 	 * mutant: src/mackie_display.c:65 `return MACKIE_E_SPACE` -> `return MACKIE_E_RANGE`
+	 * input: timecode-no-room
+	 * mutant: src/mackie_display.c:65 `return MACKIE_E_SPACE` -> `return cap ? (out[0].len = 0, MACKIE_E_SPACE) : MACKIE_E_SPACE`
 	 * input: timecode-no-room */
-	if (k > cap && rc != SPEC_E_SPACE)
+	if (k > cap && (rc != SPEC_E_SPACE || (out && !fuzz_all((const uint8_t *)out, cap * sizeof *out, 0xa5))))
 		abort();
 	/* The characters count and one Control Change is made for each, leftmost digit's CC
 	 * first and going down, the seven-segment code of the character as its data.

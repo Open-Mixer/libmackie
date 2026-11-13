@@ -207,17 +207,22 @@ FUZZ_CHECK check_usable(const struct fuzz_map *fm)
 	/* The assignment display's left digit is one CC above the map's.
 	 * contract: include/mackie/mackie.h struct mackie_map assignment_cc; mackie_codec.h mackie_assignment_encode
 	 * mutant: src/mackie_display.c:88 `m->assignment_cc + 1 - i` -> `m->assignment_cc + 2 - i`
+	 * input: map-assign-126
+	 * mutant: src/mackie_display.c:88 `m->assignment_cc + 1 - i` -> `m->assignment_cc`
 	 * input: map-assign-126 */
-	if (mackie_assignment_encode(&fm->m, "12", out) != SPEC_OK || !data7(&out[0]) || !data7(&out[1]))
+	if (mackie_assignment_encode(&fm->m, "12", out) != SPEC_OK || !data7(&out[0]) || !data7(&out[1]) ||
+	    out[0].bytes[1] != (uint8_t)(fm->m.assignment_cc + 1) || out[1].bytes[1] != fm->m.assignment_cc)
 		abort();
 	bad = mackie_timecode_encode(&fm->m, "01:02:03:04", out, MACKIE_DISPLAY_MAX_DIGITS, &n) != SPEC_OK ||
 	      n != fm->m.timecode_digits;
 	for (size_t i = 0; !bad && i < n; i++)
-		bad = !data7(&out[i]) || out[i].bytes[1] < fm->m.timecode_cc ||
-		      out[i].bytes[1] >= fm->m.timecode_cc + fm->m.timecode_digits;
-	/* The timecode display writes one CC per digit, from the map's CC up by the digits.
+		bad = !data7(&out[i]) || out[i].bytes[1] != (uint8_t)(fm->m.timecode_cc + n - 1 - i);
+	/* The timecode display writes one CC per digit, from the map's CC up by the digits, the
+	 * leftmost digit on the highest.
 	 * contract: include/mackie/mackie.h struct mackie_map timecode_cc; mackie_codec.h mackie_timecode_encode
 	 * mutant: src/mackie_display.c:68 `m->timecode_cc + digits - 1 - i` -> `m->timecode_cc + digits - i`
+	 * input: map-display-edge
+	 * mutant: src/mackie_display.c:68 `m->timecode_cc + digits - 1 - i` -> `m->timecode_cc + digits - 1`
 	 * input: map-display-edge */
 	if (bad)
 		abort();
