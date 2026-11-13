@@ -33,6 +33,14 @@
 
 #include "fuzz.h"
 
+/* F0 00 00 66 <model> <sub> ... F7 of six bytes at least: a handshake message of this model,
+ * read from the bytes alone */
+static int spec_handshake_frame(const uint8_t *msg, size_t len, uint8_t model)
+{
+	return len >= 6 && msg[0] == SPEC_SYSEX && msg[len - 1] == SPEC_EOX && msg[1] == 0x00 &&
+	       msg[2] == 0x00 && msg[3] == 0x66 && msg[4] == model;
+}
+
 /* the sub is msg[5]; the body is what is between it and the closing F7 */
 static size_t body_len(size_t len)
 {
@@ -42,8 +50,7 @@ static size_t body_len(size_t len)
 FUZZ_CHECK check_handshake(const uint8_t *msg, size_t len, uint8_t model)
 {
 	struct mackie_handshake h, was;
-	int mine = len >= 6 && msg[0] == SPEC_SYSEX && msg[len - 1] == SPEC_EOX && msg[1] == 0x00 &&
-		   msg[2] == 0x00 && msg[3] == 0x66 && msg[4] == model;
+	int mine = spec_handshake_frame(msg, len, model);
 
 	memset(&h, 0xa5, sizeof h);
 	was = h;
@@ -110,10 +117,8 @@ FUZZ_CHECK check_handshake_args(const uint8_t *msg, size_t len, uint8_t model)
 
 FUZZ_CHECK check_version(const uint8_t *msg, size_t len, uint8_t model, size_t cap)
 {
-	struct mackie_handshake h;
 	char *text = (char *)fuzz_alloc(cap);
-	int hs = mackie_handshake_decode(msg, len, model, &h);
-	int reply = hs == SPEC_OK && msg[5] == SPEC_SUB_VERSION_REPLY;
+	int reply = spec_handshake_frame(msg, len, model) && msg[5] == SPEC_SUB_VERSION_REPLY;
 	size_t n = body_len(len);
 
 	memset(text, 0xa5, cap);
