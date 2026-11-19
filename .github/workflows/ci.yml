@@ -18,7 +18,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          sparse-checkout: .github/workflows
+          sparse-checkout: |
+            .github/workflows
+            tools/test
+      - name: No Fedora 44 reference in the workflows
+        run: |
+          tools/test/workflow-fedora-check.sh --self-test
+          tools/test/workflow-fedora-check.sh .
       - uses: Open-Mixer/.github/.github/actions/fedora-cells@openmixer-v1
   # the cells the build and the tests run: check-matrix's answer (rule 11-10: fc45 beside fc44;
   # the quick set while a release wave is open, the whole matrix declared here otherwise)
