@@ -11,6 +11,16 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  trigger-gate:
+    name: only this workflow runs on a pull request
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Open-Mixer/.github/.github/actions/trigger-gate@openmixer-v1
+        with:
+          lint-workflow: ci.yml
+
   # no Fedora release written into a job: the cells come from check-matrix (rule 11-10, ruling D25)
   fedora-cells:
     runs-on: ubuntu-latest
